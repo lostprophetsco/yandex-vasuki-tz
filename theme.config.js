@@ -23,12 +23,11 @@ iceThemeGenerator(
     },
     gridSettings: {
       container: {
-        container: '100%',
+        container: '1366px',
         sm: '100%',
         md: '100%',
         lg: '100%',
-        xl: '100%',
-        xxl: '1222px',
+        xl: '1366px',
       },
       fields: {
         fields: '20px',
@@ -36,9 +35,8 @@ iceThemeGenerator(
         xl: '72px',
       },
       gap: {
-        gap: '14px',
-        sm: '20px',
-        xl: '30px',
+        gap: '20px',
+        xl: '20px',
       },
     },
     themes: {

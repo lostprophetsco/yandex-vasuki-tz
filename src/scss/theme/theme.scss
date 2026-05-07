@@ -28,20 +28,18 @@ $break-xl: 1366px;
 }
 
 @mixin grid-settings() {
---container: 100%;
---debug-container: '100%';
+--container: 1366px;
+--debug-container: '1366px';
 --fields: 20px;
 --debug-fields: '20px';
---gap: 14px;
---debug-gap: '14px';
+--gap: 20px;
+--debug-gap: '20px';
 --debug-breakpoint: 'null';
 
 @include sm {
 --container: 100%;
 --debug-container: '100%';
 --debug-breakpoint: 'sm';
---gap: 20px;
---debug-gap: '20px';
 }
 
 @include md {
@@ -59,13 +57,13 @@ $break-xl: 1366px;
 }
 
 @include xl {
---container: 100%;
---debug-container: '100%';
+--container: 1366px;
+--debug-container: '1366px';
 --debug-breakpoint: 'xl';
 --fields: 72px;
 --debug-fields: '72px';
---gap: 30px;
---debug-gap: '30px';
+--gap: 20px;
+--debug-gap: '20px';
 }
 }
 
