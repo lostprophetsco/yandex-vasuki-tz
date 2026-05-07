@@ -1,0 +1,138 @@
+@use '../../theme/theme';
+
+.members {
+  margin-top: 120px;
+
+  @include theme.xl {
+    margin-top: 200px;
+  }
+
+  // .members__container
+  &__container {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  // .members__title
+  &__title {
+    width: 100%;
+    font-family: var(--fonts-family-merriweather), sans-serif;
+    font-size: 36px;
+    line-height: 1.1;
+    text-transform: uppercase;
+
+    @include theme.xl {
+      order: 1;
+      width: 60%;
+      font-size: 54px;
+      line-height: 1.2;
+    }
+  }
+
+  // .members__pagination
+  &__pagination {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    order: 3;
+    width: 100%;
+    margin-top: 38px;
+
+    @include theme.xl {
+      gap: 14px;
+      justify-content: flex-end;
+      order: 2;
+      width: 40%;
+      margin-top: 0;
+    }
+  }
+
+  // .members__pagination-list
+  &__pagination-list {
+    font-size: 16px;
+    line-height: 1.2;
+    color: #313131;
+  }
+
+  // .members__pagination-count
+  &__pagination-count {
+    color: var(--color-black);
+  }
+
+  // .members__slider
+  &__slider {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-top: 40px;
+
+    @include theme.lg {
+      grid-template-columns: repeat(3, 1fr);
+      order: 3;
+      margin-top: 60px;
+    }
+  }
+
+  // .members__slide
+  &__slide {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  // .members__slide-img
+  &__slide-img {
+    max-width: 244px;
+    border-radius: 50%;
+
+    @include theme.xl {
+      width: 81%;
+      max-width: 400px;
+    }
+  }
+
+  // .members__slide-name
+  &__slide-name {
+    margin-top: 28px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  // .members__slide-title
+  &__slide-title {
+    margin-top: 8px;
+    font-size: 20px;
+    line-height: 1.2;
+    color: rgb(49 49 49 / 60%);
+
+    @include theme.xl {
+      margin-top: 6px;
+    }
+  }
+
+  // .members__slide-more
+  &__slide-more {
+    display: inline-flex;
+    padding: 7px 12px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-blue);
+    text-decoration: none;
+    border: 1px solid var(--color-blue);
+    border-radius: 99em;
+  }
+
+  /* stylelint-disable-next-line */
+  .button--navigation {
+    @include theme.xl {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
