@@ -1,0 +1,48 @@
+@use '../theme/theme';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 47px;
+  font-family: var(--fonts-family-golos), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 99rem;
+  transition: all 0.2s ease;
+
+  @include theme.lg {
+    height: 72px;
+  }
+
+  // .button--dark
+  &--dark {
+    color: var(--color-white);
+    background-color: var(--color-black);
+
+    // .button--dark:hover
+    &:hover {
+      color: var(--color-black);
+      background-color: var(--color-yellow);
+    }
+  }
+
+  // .button--white
+  &--white {
+    color: var(--color-black);
+    background-color: transparent;
+    border: 2px solid var(--color-black);
+
+    // .button--white:hover
+    &:hover {
+      color: var(--color-white);
+      background-color: var(--color-black);
+      border: 2px solid var(--color-black);
+    }
+  }
+}
