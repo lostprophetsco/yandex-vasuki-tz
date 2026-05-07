@@ -1,0 +1,248 @@
+$break-sm: 576px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1366px;
+
+@mixin sm() {
+@media screen and (min-width: $break-sm){
+@content; 
+}
+}
+
+@mixin md() {
+@media screen and (min-width: $break-md){
+@content; 
+}
+}
+
+@mixin lg() {
+@media screen and (min-width: $break-lg){
+@content; 
+}
+}
+
+@mixin xl() {
+@media screen and (min-width: $break-xl){
+@content; 
+}
+}
+
+@mixin grid-settings() {
+--container: 100%;
+--debug-container: '100%';
+--fields: 20px;
+--debug-fields: '20px';
+--gap: 14px;
+--debug-gap: '14px';
+--debug-breakpoint: 'null';
+
+@include sm {
+--container: 100%;
+--debug-container: '100%';
+--debug-breakpoint: 'sm';
+--gap: 20px;
+--debug-gap: '20px';
+}
+
+@include md {
+--container: 100%;
+--debug-container: '100%';
+--debug-breakpoint: 'md';
+}
+
+@include lg {
+--container: 100%;
+--debug-container: '100%';
+--debug-breakpoint: 'lg';
+--fields: 40px;
+--debug-fields: '40px';
+}
+
+@include xl {
+--container: 100%;
+--debug-container: '100%';
+--debug-breakpoint: 'xl';
+--fields: 72px;
+--debug-fields: '72px';
+--gap: 30px;
+--debug-gap: '30px';
+}
+}
+
+@mixin grid-container() {
+@include grid-container-fluid;
+
+max-width: var(--container);
+margin: 0 auto;
+
+@extend %grid-debug !optional;
+}
+
+@mixin grid-container-fluid() {
+position: relative;
+width: 100%;
+max-width: 100%;
+padding-right: var(--fields);
+padding-left: var(--fields);
+
+@extend %grid-debug !optional;
+}
+
+@mixin debug($columns, $columns-sm:null, $columns-md:null, $columns-lg:null, $columns-xl:null ) {
+%grid-debug {
+ --columns: #{$columns};
+ --grid-column-width: calc((100% - var(--gap) * var(--columns)) / var(--columns));
+ --grid-column-width-gap: calc(var(--grid-column-width) + var(--gap));
+ --grid-column-half-width-gap: calc(var(--grid-column-width) + var(--gap) / 2);
+ --half-gap: calc(var(--gap) / 2);
+ --grid-color: rgb(255 0 0 / 20%);
+ --padding-color: #6ccc7e73;
+ --heading-hint: 'BreakPoint: ' var(--debug-breakpoint) '; Container: ' var(--debug-container) '; Fields: ' var(--debug-fields) '; '  'Gap: ' var(--debug-gap);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 9999;
+      height: calc(100% - 30px);
+      padding: 5px var(--fields) 25px;
+      font-family: system-ui;
+      font-size: 20px;
+      font-weight: 500;
+      color: #00000080;
+      text-align: center;
+      pointer-events: none;
+      content: var(--heading-hint);
+      counter-reset: variable var(--columns);
+      background-image: repeating-linear-gradient(
+          to left,
+          transparent 0,
+          transparent var(--half-gap),
+          var(--grid-color) var(--half-gap),
+          var(--grid-color) var(--grid-column-half-width-gap),
+          transparent var(--grid-column-half-width-gap),
+          transparent var(--grid-column-width-gap)
+      );
+      background-repeat: space;
+      border: solid transparent;
+      border-width: 0 calc(var(--fields) - var(--gap) / 2);
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: calc(100% - 20px);
+      padding-top: 20px;
+      font-family: system-ui;
+      font-size: 13px;
+      font-weight: 500;
+      color: #00000080;
+      text-align: center;
+      pointer-events: none;
+      content: counter(variable) ' columns grid';
+      background-image:
+          linear-gradient(to left,  var(--padding-color) 0, var(--padding-color) var(--fields)),
+          linear-gradient(to left, var(--padding-color) 0, var(--padding-color) var(--fields));
+      background-repeat: no-repeat;
+      background-position:
+          0 0,
+          100% 0;
+      background-size:
+          var(--fields) 100%,
+          var(--fields) 100%;
+    }
+
+@include sm {
+--columns: #{$columns-sm};
+}
+
+@include md {
+--columns: #{$columns-md};
+}
+
+@include lg {
+--columns: #{$columns-lg};
+}
+
+@include xl {
+--columns: #{$columns-xl};
+}
+}
+}
+
+@mixin grid($columns, $columns-sm:null, $columns-md:null, $columns-lg:null, $columns-xl:null ) {
+display: grid;
+grid-template-columns: repeat($columns, 1fr);
+grid-gap: var(--gap);
+width: 100%;
+
+@if $columns-sm {
+@include sm {
+grid-template-columns: repeat($columns-sm, 1fr);
+}
+}
+
+@if $columns-md {
+@include md {
+grid-template-columns: repeat($columns-md, 1fr);
+}
+}
+
+@if $columns-lg {
+@include lg {
+grid-template-columns: repeat($columns-lg, 1fr);
+}
+}
+
+@if $columns-xl {
+@include xl {
+grid-template-columns: repeat($columns-xl, 1fr);
+}
+}
+}
+
+@mixin theme-default() {
+}
+
+@mixin fonts-family() {
+--fonts-family-golos: golos text, arial, helvetica, sans-serif;
+--fonts-family-merriweather: merriweather, serif;
+}
+
+@mixin text-style-helper($name) {
+font-size: var(--fonts-size-#{$name});
+font-weight: var(--fonts-weight-#{$name});
+line-height: var(--fonts-height-#{$name});
+}
+
+@mixin column-offset($offset, $offset-sm:null, $offset-md:null, $offset-lg:null, $offset-xl:null ) {
+grid-column: $offset;
+
+@if $offset-sm {
+@include sm {
+grid-column: $offset-sm;
+}
+}
+
+@if $offset-md {
+@include md {
+grid-column: $offset-md;
+}
+}
+
+@if $offset-lg {
+@include lg {
+grid-column: $offset-lg;
+}
+}
+
+@if $offset-xl {
+@include xl {
+grid-column: $offset-xl;
+}
+}
+}

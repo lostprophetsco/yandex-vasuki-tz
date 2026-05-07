@@ -1,0 +1,194 @@
+@use 'sass:selector';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector.append(&, $sel))} {
+    @content;
+  }
+}
+
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+}
+
+@mixin font-face($name, $file, $weight: 400, $style: normal) {
+  @font-face {
+    font-family: '#{$name}';
+    font-style: $style;
+    font-weight: $weight;
+    src: local('#{$file}'), url('../fonts/#{$file}.woff2') format('woff2');
+    font-display: swap;
+  }
+}
+
+@mixin font-file($f-name, $f-style, $f-weight, $f-url, $f-format) {
+  @font-face {
+    font-family: $f-name;
+    font-style: $f-style;
+    font-weight: $f-weight;
+    src: local($f-name), url($f-url) format($f-format);
+    font-display: swap;
+  }
+}
+
+/**
+ * Миксин для создания image-set
+ *
+ * @param {array} $images - Список изображений для image-set
+ * @params
+ 	$header-bg: ("../../../images/css/header-background320.jpg");
+  $header-bg2x: ("../../../images/css/header-background3202.jpg", "2x");
+  $header-webp: ("../../../images/css/header-background320.webp");
+  $header-webp2x: ("../../../images/css/header-background3202.webp", "2x");
+  $header-avif: ("../../../images/css/header-background320.avif");
+  $header-avif2x: ("../../../images/css/header-background3202.avif", "2x");
+ *
+  @use @include image-set([$header-bg, $header-bg2x, $header-webp, $header-webp2x, $header-avif, $header-avif2x]);
+ */
+@mixin image-set($images) {
+  /**
+	 * Допустимые расширения файлов
+	 * @type {list}
+	 */
+  $allowed-extensions: ('jpg', 'jpeg', 'webp', 'avif', 'png');
+
+  /**
+	 * Массивы для хранения изображений разных типов
+	 * @type {list}
+	 */
+  $avif-images: ();
+  $webp-images: ();
+  $other-images: ();
+  $html-preload-images: ();
+
+  /**
+	 * Карта для сопоставления расширений файлов с соответствующими MIME-типами
+	 * @type {map}
+	 */
+  $mime-types: (
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'webp': 'image/webp',
+    'avif': 'image/avif',
+    'png': 'image/png',
+  );
+
+  /**
+	 * Обработка каждого изображения в списке
+	 */
+  @each $image in $images {
+    /**
+		 * URL изображения
+		 * @type {string}
+		 */
+    $url: list.nth($image, 1);
+
+    /**
+		 * Расширение файла
+		 * @type {string}
+		 */
+    $extension-url: $url;
+    $extension: '';
+
+    /**
+		 * Определение расширения файла
+		 */
+    $last-dot-index: null;
+    $index: string.index($extension-url, '.');
+
+    @while $index != null {
+      $last-dot-index: $index;
+      $extension-url: string.slice($extension-url, $index + 1);
+      $index: string.index($extension-url, '.');
+    }
+
+    $extension: $extension-url;
+
+    /**
+		 * Определение разрешения изображения
+		 * @type {string}
+		 */
+    $resolution: if(list.length($image) > 1, list.nth($image, 2), '1x');
+
+    /**
+		 * Проверка допустимости расширения файла
+		 */
+    @if not(list.index($allowed-extensions, $extension)) {
+      @error "Недопустимое расширение файла в миксине image-set: #{$extension}";
+    }
+
+    /**
+		 * Определение MIME-типа файла
+		 * @type {string}
+		 */
+    $mime-type: map.get($mime-types, $extension);
+
+    /**
+		 * Добавление изображения в соответствующий массив
+		 */
+    @if $extension == 'avif' {
+      $avif-images: list.append($avif-images, "url(#{$url}) type('#{$mime-type}') #{$resolution}");
+    } @else if $extension == 'webp' {
+      $webp-images: list.append($webp-images, "url(#{$url}) type('#{$mime-type}') #{$resolution}");
+    } @else {
+      $other-images: list.append(
+        $other-images,
+        "url(#{$url}) type('#{$mime-type}') #{$resolution}"
+      );
+    }
+
+    /**
+		 * Добавление ссылки на изображение в <head> HTML
+		 */
+    $html-preload-images: list.append(
+      $html-preload-images,
+      '<link rel="preload" as="image" href="#{$url}" type="#{$mime-type}">'
+    );
+
+    @warn "HTML preload images: #{$html-preload-images}";
+  }
+
+  /**
+	 * Создание image-set
+	 */
+  $image-set-string: '';
+  $first-item: true;
+
+  @each $item in $avif-images {
+    @if $first-item {
+      $image-set-string: '#{$image-set-string} #{$item}';
+      $first-item: false;
+    } @else {
+      $image-set-string: '#{$image-set-string}, #{$item}';
+    }
+  }
+
+  @each $item in $webp-images {
+    $image-set-string: '#{$image-set-string}, #{$item}';
+  }
+
+  @each $item in $other-images {
+    $image-set-string: '#{$image-set-string}, #{$item}';
+  }
+
+  /**
+	 * Применение image-set
+	 */
+  background-image: image-set(#{$image-set-string});
+}

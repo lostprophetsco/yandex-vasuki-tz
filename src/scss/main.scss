@@ -1,0 +1,11 @@
+@use './theme/theme' as theme;
+@import 'mixins';
+@import '../../node_modules/reset-css/sass/reset';
+@import './theme/core';
+@import './theme/theme';
+
+:root {
+  @include theme.grid-settings;
+  @include theme.theme-default;
+  @include theme.fonts-family;
+}

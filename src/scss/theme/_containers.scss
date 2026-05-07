@@ -1,0 +1,11 @@
+@use './theme' as theme;
+
+.container-fluid {
+  @include theme.grid-container-fluid;
+}
+
+.container {
+  @include theme.grid-container;
+}
+
+// @include theme.debug(4, 4, 6, 12, 12, 12);

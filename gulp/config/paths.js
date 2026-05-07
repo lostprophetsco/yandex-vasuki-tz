@@ -1,0 +1,41 @@
+import path from 'path';
+
+const buildFolder = './dist';
+const srcFolder = './src';
+
+const filePaths = {
+  build: {
+    js: `${buildFolder}/js/`,
+    css: `${buildFolder}/css/`,
+    images: `${buildFolder}/images/`,
+    cssSvg: `${buildFolder}/images/css/`,
+    fonts: `${buildFolder}/fonts/`,
+    static: `${buildFolder}/static/`,
+  },
+  src: {
+    js: `${srcFolder}/js/*.js`,
+    images: `${srcFolder}/images/**/*.{jpg,jpeg,png,gif,webp,avif}`,
+    svg: `${srcFolder}/images/**/*.svg`,
+    scss: [`${srcFolder}/scss/main.scss`, `${srcFolder}/scss/pages/*.scss`],
+    html: `${srcFolder}/*.html`,
+    static: `${srcFolder}/static/**/*.*`,
+    svgIcons: `${srcFolder}/icons/*.svg`,
+    cssSvg: `${srcFolder}/images/css/*.svg`,
+    fontFacesFile: `${srcFolder}/scss/theme/_fonts.scss`,
+    fonts: `${srcFolder}/fonts/`,
+  },
+  watch: {
+    js: `${srcFolder}/js/**/*.js`,
+    scss: `${srcFolder}/scss/**/*.scss`,
+    html: `${srcFolder}/**/*.html`,
+    images: `${srcFolder}/**/*.{jpg,jpeg,png,svg,gif,webp,ico}`,
+    static: `${srcFolder}/static/**/*.*`,
+    cssSvg: `${srcFolder}/images/css/*.svg`,
+  },
+  buildFolder,
+  srcFolder,
+  projectDirName: path.basename(path.resolve()),
+  ftp: ``, // Путь к нужной папке на удаленном сервере. Gulp добавит имя папки проекта автоматически
+};
+
+export { filePaths };
