@@ -1,0 +1,189 @@
+@use '../../theme/theme';
+
+.support {
+  margin-top: 48px;
+
+  @include theme.lg {
+    margin-top: 110px;
+  }
+
+  // .support__container
+  &__container {
+    display: flex;
+    flex-flow: column;
+    gap: 34px;
+
+    @include theme.lg {
+      gap: 64px;
+    }
+  }
+
+  // .support__break-container
+  &__break-container {
+    display: flex;
+    flex-flow: column;
+    gap: 24px;
+    line-height: 1.35;
+    text-transform: uppercase;
+
+    @include theme.xl {
+      position: relative;
+      display: block;
+      max-width: 764px;
+
+      &::after {
+        display: table;
+        clear: both;
+        content: '';
+      }
+    }
+  }
+
+  // .support__break-text
+  &__break-text {
+    font-family: var(--fonts-family-merriweather), sans-serif;
+    font-size: 28px;
+
+    @include theme.lg {
+      font-size: 36px;
+    }
+
+    // .support__break-text--first
+    &--first {
+      order: 1;
+    }
+
+    // .support__break-text--second
+    &--second {
+      order: 3;
+    }
+
+    // .support__break-text--red
+    &--red {
+      font-weight: 800;
+      color: var(--color-red);
+    }
+  }
+
+  // .support__break-image
+  &__break-image {
+    order: 2;
+
+    @include theme.xl {
+      position: absolute;
+      top: -30px;
+      right: 0;
+      transform: translateX(calc(100% + 60px));
+    }
+  }
+
+  // .support__second-container
+  &__second-container {
+    @include theme.xl {
+      display: flex;
+    }
+  }
+
+  // .support__second-image
+  &__second-image {
+    position: relative;
+    left: -20px;
+
+    img {
+      width: calc(100% + 40px);
+      max-width: 420px;
+      height: auto;
+    }
+
+    @include theme.xl {
+      left: -25px;
+      flex-shrink: 0;
+      width: auto;
+
+      img {
+        width: 100%;
+        max-width: 515px;
+      }
+    }
+  }
+
+  // .support__second-header
+  &__second-header {
+    margin-top: 24px;
+    font-family: var(--fonts-family-merriweather), sans-serif;
+    font-size: 28px;
+    line-height: 1.35;
+    text-transform: uppercase;
+
+    @include theme.lg {
+      font-size: 36px;
+    }
+  }
+
+  // .support__table
+  &__table {
+    display: flex;
+    flex-flow: column;
+    margin-top: 32px;
+
+    @include theme.xl {
+      margin-top: 50px;
+    }
+  }
+
+  // .support__table-row
+  &__table-row {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+    padding: 16px 0;
+    font-size: 20px;
+    border-bottom: 2px solid #d0d0d0;
+
+    &:last-child {
+      border: none;
+    }
+
+    @include theme.xl {
+      padding: 0;
+    }
+  }
+
+  // .support__table-label
+  &__table-label {
+    @include theme.xl {
+      width: 44%;
+      padding: 16px 0;
+      border-right: 2px solid #d0d0d0;
+    }
+  }
+
+  // .support__table-text
+  &__table-text {
+    font-weight: 600;
+
+    @include theme.xl {
+      flex-grow: 1;
+      padding: 16px 0;
+    }
+  }
+
+  // .support__old-price
+  &__old-price {
+    display: inline-block;
+    text-decoration: line-through var(--color-red);
+  }
+
+  // .support__info-text
+  &__info-text {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--color-blue);
+
+    @include theme.lg {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  }
+}
