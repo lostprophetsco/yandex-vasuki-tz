@@ -2,19 +2,26 @@
 
 .header {
   position: relative;
-  padding-top: 18px;
-  padding-bottom: 290px;
-  background-image: url('@img/css/header-bg.jpg');
-  background-repeat: no-repeat;
-  background-position: center 2px;
-  background-size: cover;
+  background-image: url('@img/css/header-pattern-bg.jpg');
+  background-repeat: repeat;
+  background-position: center;
 
-  @include theme.sm {
-    padding-top: 26px;
-    padding-bottom: 130px;
-    background-image: url('@img/css/header-bg-full.jpg');
+  // .header__container
+  &__container {
+    padding: 18px 0 290px;
+    overflow: visible;
+    background-image: url('@img/css/header-bg.jpg');
+    background-repeat: no-repeat;
     background-position: bottom center;
     background-size: cover;
+
+    @include theme.sm {
+      padding-top: 26px;
+      padding-bottom: 130px;
+      background-image: url('@img/css/header-bg-full.png');
+      background-position: bottom center;
+      background-size: unset;
+    }
   }
 
   // .header__logo-link
@@ -68,7 +75,7 @@
       padding-left: 0;
     }
 
-    @include theme.lg {
+    @include theme.xl {
       display: block;
       max-width: 538px;
       padding-left: 36px;
