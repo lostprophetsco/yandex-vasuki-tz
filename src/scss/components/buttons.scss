@@ -45,4 +45,40 @@
       border: 2px solid var(--color-black);
     }
   }
+
+  // .button--navigation
+  &--navigation {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    color: var(--color-white);
+    background-color: var(--color-black);
+    border: none;
+    border-radius: 50%;
+
+    // .button--navigation:hover
+    &:hover {
+      background-color: var(--color-yellow);
+    }
+  }
+
+  // .button--disabled
+  &--disabled {
+    cursor: not-allowed;
+    background-color: #d6d6d6;
+  }
+
+  // .button--pagination
+  &--pagination {
+    width: 10px;
+    height: 10px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 50%;
+  }
+
+  // .button--pagination-active
+  &--pagination-active {
+    background-color: var(--color-black);
+  }
 }
