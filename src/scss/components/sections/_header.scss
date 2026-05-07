@@ -1,0 +1,115 @@
+@use '../../theme/theme';
+
+.header {
+  position: relative;
+  padding-top: 18px;
+  padding-bottom: 290px;
+  background-image: url('@img/css/header-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center 2px;
+  background-size: cover;
+
+  @include theme.sm {
+    padding-top: 26px;
+    padding-bottom: 130px;
+    background-image: url('@img/css/header-bg-full.jpg');
+    background-position: bottom center;
+    background-size: cover;
+  }
+
+  // .header__container
+  &__container {
+  }
+
+  // .header__logo-link
+  &__logo-link {
+    display: inline-flex;
+  }
+
+  // .header__logo-img
+  &__logo-img {
+    width: 213px;
+    height: 32px;
+
+    @include theme.lg {
+      width: 246px;
+      height: 36px;
+    }
+  }
+
+  // .header__hero
+  &__hero {
+    max-width: 542px;
+    padding-top: 36px;
+
+    @include theme.xl {
+      padding-top: 56px;
+    }
+  }
+
+  // .header__hero-slogan
+  &__hero-slogan {
+    font-family: var(--fonts-family-merriweather), serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-default-text);
+    text-transform: uppercase;
+
+    @include theme.xl {
+      font-size: 60px;
+    }
+  }
+
+  // .header__hero-slogan-center
+  &__hero-slogan-center {
+    display: block;
+    padding-left: 20px;
+    text-align: center;
+
+    @include theme.sm {
+      display: inline;
+      padding-left: 0;
+    }
+
+    @include theme.lg {
+      display: block;
+      max-width: 538px;
+      padding-left: 36px;
+      letter-spacing: 1px;
+    }
+  }
+
+  // .header__hero-text
+  &__hero-text {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  // .header__hero-buttons
+  &__hero-buttons {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+
+    @include theme.xl {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+  }
+
+  // .header__hero-button
+  &__hero-button {
+    br {
+      display: none;
+
+      @include theme.lg {
+        display: block;
+      }
+    }
+  }
+}

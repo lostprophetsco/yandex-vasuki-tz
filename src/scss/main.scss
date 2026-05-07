@@ -3,6 +3,8 @@
 @import '../../node_modules/reset-css/sass/reset';
 @import './theme/core';
 @import './theme/theme';
+@import './components/buttons';
+@import './components/sections';
 
 :root {
   @include theme.grid-settings;
