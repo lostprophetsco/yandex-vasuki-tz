@@ -1,0 +1,30 @@
+# GitHub Pages Configuration
+theme: jekyll-theme-minimal
+title: Клуб четырех коней
+description: Международный васюкинский турнир по шахматам
+baseurl: /yandex-vasuki-tz
+url: https://vadimzavgorodnij.github.io/yandex-vasuki-tz
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Exclude from processing
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - gulpfile.js
+  - webpack.config.js
+  - tsconfig.json
+  - .eslintrc.json
+  - src/
+
+# Include in processing
+include:
+  - _config.yml
+  - _data/
+  - dist/
