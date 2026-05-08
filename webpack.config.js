@@ -1,7 +1,6 @@
 import { resolve, join } from 'path';
-import { readDir } from './gulp/config/read-dir.js';
 
-export const webpackConfig = async (isMode) => {
+export const webpackConfig = (isMode) => {
 	const paths = {
 		src: resolve('src'),
 		build: resolve('dist'),
@@ -11,7 +10,7 @@ export const webpackConfig = async (isMode) => {
 
 	return {
 		context,
-		entry: await readDir(context),
+		entry: './main.js',
 		mode: isMode ? 'development' : 'production',
 		output: {
 			path: join(paths.build, 'js'),

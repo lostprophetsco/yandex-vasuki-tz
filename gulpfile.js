@@ -78,3 +78,25 @@ gulp.task('default', dev);
  * Экспорт сценариев
  * */
 export { dev, build, deployZIP, deployFTP, createSvgSprite };
+
+// Запуск через node напрямую
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const task = process.argv[2];
+  
+  switch (task) {
+    case 'build':
+      build();
+      break;
+    case 'deployZIP':
+      deployZIP();
+      break;
+    case 'deployFTP':
+      deployFTP();
+      break;
+    case 'createSvgSprite':
+      createSvgSprite();
+      break;
+    default:
+      dev();
+  }
+}

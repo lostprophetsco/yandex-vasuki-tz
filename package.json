@@ -5,19 +5,18 @@
   "main": "gulpfile.js",
   "type": "module",
   "scripts": {
-    "dev": "gulp",
-    "build": "gulp build --build",
+    "dev": "node gulpfile.js",
+    "build": "node gulpfile.js build",
     "preview": "npm run build && npx serve ./dist",
     "lint:scss": "stylelint src/scss/**/*.scss --fix",
     "lint:js": "eslint src/js/**/*.js --fix",
-    "zip": "gulp deployZIP --build",
-    "deployFTP": "gulp deployFTP --build",
-    "sprite": "gulp createSvgSprite",
+    "zip": "node gulpfile.js deployZIP",
+    "deployFTP": "node gulpfile.js deployFTP",
+    "sprite": "node gulpfile.js createSvgSprite",
     "deploy": "gh-pages -d dist",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html,css,md,yaml,yml}\"",
     "predeploy": "npm run build",
-    "validate": "html-validator dist'--ignore=Trailing slash on void elements' --continue",
-    "theme": "node theme.config.js && stylelint \"./src/scss/theme/**/*.scss\" --fix && prettier --write \"./src/scss/theme/**/*.scss\""
+    "validate": "html-validator dist'--ignore=Trailing slash on void elements' --continue"
   },
   "dependencies": {
     "reset-css": "^5.0.2"
