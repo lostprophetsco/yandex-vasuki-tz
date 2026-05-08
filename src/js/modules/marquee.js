@@ -1,14 +1,15 @@
-import marquee from 'vanilla-marquee';
+import Marquee from 'vanilla-marquee';
 
 /**
  * Инициализация бегущей строки
  */
-export function initMarquee() {
+export default function initMarquee() {
   const marqueeItems = document.getElementsByClassName('marquee');
 
   if (marqueeItems.length > 0) {
-    for (let i = 0; i < marqueeItems.length; i++) {
-      new marquee(marqueeItems[i], {
+    const instances = [];
+    for (let i = 0; i < marqueeItems.length; i += 1) {
+      const marqueeInstance = new Marquee(marqueeItems[i], {
         speed: 100,
         duplicated: true,
         pauseOnHover: true,
@@ -16,6 +17,9 @@ export function initMarquee() {
         recalcResize: true,
         gap: 30,
       });
+      instances.push(marqueeInstance);
     }
+    return instances;
   }
+  return null;
 }

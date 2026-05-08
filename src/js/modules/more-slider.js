@@ -1,7 +1,7 @@
 /**
  * Слайдер секции More
  */
-export const moreSlider = {
+const moreSlider = {
   grid: null,
   items: [],
   pagination: null,
@@ -40,7 +40,7 @@ export const moreSlider = {
   },
 
   createDots() {
-    for (let i = 0; i < this.totalSlides; i++) {
+    for (let i = 0; i < this.totalSlides; i += 1) {
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'button--pagination';
@@ -51,8 +51,9 @@ export const moreSlider = {
     }
 
     this.items.forEach((item, i) => {
-      item.style.opacity = i === 0 ? '1' : '0';
-      item.style.visibility = i === 0 ? 'visible' : 'hidden';
+      const currentItem = item;
+      currentItem.style.opacity = i === 0 ? '1' : '0';
+      currentItem.style.visibility = i === 0 ? 'visible' : 'hidden';
     });
 
     this.prevBtn.addEventListener('click', () => this.prev());
@@ -98,7 +99,7 @@ export const moreSlider = {
     document.body.appendChild(tempContainer);
 
     const clones = tempContainer.children;
-    for (let i = 0; i < clones.length; i++) {
+    for (let i = 0; i < clones.length; i += 1) {
       const height = clones[i].offsetHeight;
       if (height > maxHeight) {
         maxHeight = height;
@@ -116,7 +117,7 @@ export const moreSlider = {
     this.grid.classList.add('more__grid--slider');
 
     const maxHeight = this.calculateMaxHeight();
-    this.grid.style.height = maxHeight + 'px';
+    this.grid.style.height = `${maxHeight}px`;
 
     this.goToSlide(0);
     this.updateNavigationButtons();
@@ -130,8 +131,9 @@ export const moreSlider = {
     this.grid.style.removeProperty('height');
 
     this.items.forEach((item) => {
-      item.style.removeProperty('opacity');
-      item.style.removeProperty('visibility');
+      const currentItem = item;
+      currentItem.style.removeProperty('opacity');
+      currentItem.style.removeProperty('visibility');
     });
   },
 
@@ -157,8 +159,9 @@ export const moreSlider = {
     if (index < 0 || index >= this.totalSlides) return;
 
     this.items.forEach((item, i) => {
-      item.style.opacity = i === index ? '1' : '0';
-      item.style.visibility = i === index ? 'visible' : 'hidden';
+      const currentItem = item;
+      currentItem.style.opacity = i === index ? '1' : '0';
+      currentItem.style.visibility = i === index ? 'visible' : 'hidden';
     });
 
     this.dots.forEach((dot, i) => {
@@ -177,3 +180,5 @@ export const moreSlider = {
     this.goToSlide(this.currentIndex - 1);
   },
 };
+
+export default moreSlider;

@@ -1,7 +1,7 @@
 /**
  * Карусель участников
  */
-export const membersCarousel = {
+const membersCarousel = {
   container: null,
   slides: [],
   prevBtn: null,
@@ -55,7 +55,8 @@ export const membersCarousel = {
   },
 
   updateCounter() {
-    let current, max;
+    let current;
+    let max;
 
     if (window.innerWidth <= this.mobileBreakpoint) {
       current = this.currentIndex + 1;
@@ -79,6 +80,7 @@ export const membersCarousel = {
   updateSlides() {
     this.slides.forEach((slide, index) => {
       let isVisible;
+      const currentSlide = slide;
 
       if (window.innerWidth <= this.mobileBreakpoint) {
         isVisible = index === this.currentIndex;
@@ -89,7 +91,7 @@ export const membersCarousel = {
         isVisible = index >= groupStart && index < groupEnd;
       }
 
-      slide.style.display = isVisible ? 'flex' : 'none';
+      currentSlide.style.display = isVisible ? 'flex' : 'none';
     });
   },
 
@@ -108,7 +110,8 @@ export const membersCarousel = {
     if (window.innerWidth <= this.mobileBreakpoint) {
       this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
     } else {
-      this.currentIndex = (this.currentIndex - this.slidesPerView + this.totalSlides) % this.totalSlides;
+      const newIndex = this.currentIndex - this.slidesPerView + this.totalSlides;
+      this.currentIndex = newIndex % this.totalSlides;
     }
     this.updateSlides();
     this.updateCounter();
@@ -134,3 +137,5 @@ export const membersCarousel = {
     this.startAutoplay();
   },
 };
+
+export default membersCarousel;

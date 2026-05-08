@@ -9,6 +9,7 @@
     "build": "gulp build --build",
     "preview": "npm run build && npx serve ./dist",
     "lint:scss": "stylelint src/scss/**/*.scss --fix",
+    "lint:js": "eslint src/js/**/*.js --fix",
     "zip": "gulp deployZIP --build",
     "deployFTP": "gulp deployFTP --build",
     "sprite": "gulp createSvgSprite",
