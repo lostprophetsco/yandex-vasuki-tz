@@ -1,9 +1,9 @@
-<section class="members">
+<section class="members" aria-label="Участники турнира">
   <div class="container members__container">
     <h2 class="members__title">Участники турнира</h2>
 
     <div class="members__pagination">
-      <button class="button button--navigation">
+      <button class="button button--navigation" aria-label="Предыдущий участник">
         <svg
           width="10"
           height="17"
@@ -21,11 +21,11 @@
       </button>
 
       <div class="members__pagination-list">
-        <span class="members__pagination-count">3</span>
+        <span class="members__pagination-count" aria-live="polite" aria-atomic="true">3</span>
         <span class="members__pagination-total">/ 6</span>
       </div>
 
-      <button class="button button--navigation">
+      <button class="button button--navigation" aria-label="Следующий участник">
         <svg
           width="10"
           height="17"
@@ -43,7 +43,7 @@
       </button>
     </div>
 
-    <div class="members__slider">
+    <div class="members__slider" role="region" aria-live="polite" aria-label="Карусель участников турнира">
       <div class="members__slide">
         <img
           src="@img/member.svg"
