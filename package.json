@@ -28,6 +28,8 @@
     "chalk": "^5.2.0",
     "del": "^6.0.0",
     "esbuild-loader": "^4.0.2",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "gh-pages": "^5.0.0",
     "gulp": "^4.0.2",
     "gulp-avif": "^1.1.1",
