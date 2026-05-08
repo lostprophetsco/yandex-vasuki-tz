@@ -1,0 +1,13 @@
+@use '../../theme/theme';
+
+.footer {
+  padding: 40px 0 60px;
+  font-size: 16px;
+  line-height: 1.2;
+  color: rgb(49 49 49 / 60%);
+  background-color: var(--color-beige);
+
+  @include theme.xl {
+    padding: 40px 0 72px;
+  }
+}
