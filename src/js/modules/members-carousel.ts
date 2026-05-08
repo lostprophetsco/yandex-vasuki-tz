@@ -2,17 +2,17 @@
  * Карусель участников
  */
 const membersCarousel = {
-  container: null,
-  slides: [],
-  prevBtn: null,
-  nextBtn: null,
-  countElement: null,
-  totalElement: null,
+  container: null as HTMLElement | null,
+  slides: [] as HTMLElement[],
+  prevBtn: null as HTMLButtonElement | null,
+  nextBtn: null as HTMLButtonElement | null,
+  countElement: null as HTMLElement | null,
+  totalElement: null as HTMLElement | null,
   currentIndex: 0,
   totalSlides: 0,
   slidesPerView: 3,
   mobileBreakpoint: 568,
-  autoplayInterval: null,
+  autoplayInterval: null as number | null,
   isEnabled: true,
 
   /**
@@ -55,8 +55,8 @@ const membersCarousel = {
   },
 
   updateCounter() {
-    let current;
-    let max;
+    let current: number;
+    let max: number;
 
     if (window.innerWidth <= this.mobileBreakpoint) {
       current = this.currentIndex + 1;
@@ -70,7 +70,7 @@ const membersCarousel = {
     }
 
     if (this.countElement) {
-      this.countElement.textContent = current;
+      this.countElement.textContent = current.toString();
     }
     if (this.totalElement) {
       this.totalElement.textContent = `/ ${max}`;

@@ -1,22 +1,24 @@
 /**
  * Слайдер секции More
+ * @class MoreSlider
+ * @description Обеспечивает функциональность слайдера для секции More с адаптивностью и навигацией
  */
 const moreSlider = {
-  grid: null,
-  items: [],
-  pagination: null,
-  prevBtn: null,
-  nextBtn: null,
-  dots: [],
-  dotsContainer: null,
+  grid: null as HTMLElement | null,
+  items: [] as HTMLElement[],
+  pagination: null as HTMLElement | null,
+  prevBtn: null as HTMLButtonElement | null,
+  nextBtn: null as HTMLButtonElement | null,
+  dots: [] as HTMLButtonElement[],
+  dotsContainer: null as HTMLElement | null,
   currentIndex: 0,
   totalSlides: 0,
-  breakpoint: null,
+  breakpoint: null as number | null,
   isEnabled: false,
 
   /**
    * Инициализация слайдера
-   * @param {number} breakpoint - Брейкпоинт для адаптивности
+   * @param {number} [breakpoint=1280] - Брейкпоинт для адаптивности
    */
   init(breakpoint = 1280) {
     this.breakpoint = breakpoint;
@@ -39,31 +41,40 @@ const moreSlider = {
     window.addEventListener('resize', () => this.checkBreakpoint());
   },
 
+  /**
+   * Создание точек пагинации
+   * @returns {void}
+   */
   createDots() {
     for (let i = 0; i < this.totalSlides; i += 1) {
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'button--pagination';
-      dot.dataset.slide = i;
+      dot.dataset.slide = i.toString();
       if (i === 0) dot.classList.add('button--pagination-active');
       this.dots.push(dot);
-      this.dotsContainer.appendChild(dot);
+      this.dotsContainer?.appendChild(dot);
     }
 
     this.items.forEach((item, i) => {
-      const currentItem = item;
+      const currentItem = item as HTMLElement;
       currentItem.style.opacity = i === 0 ? '1' : '0';
       currentItem.style.visibility = i === 0 ? 'visible' : 'hidden';
     });
 
-    this.prevBtn.addEventListener('click', () => this.prev());
-    this.nextBtn.addEventListener('click', () => this.next());
+    this.prevBtn?.addEventListener('click', () => this.prev());
+    this.nextBtn?.addEventListener('click', () => this.next());
     this.dots.forEach((dot, index) => {
       dot.addEventListener('click', () => this.goToSlide(index));
     });
   },
 
+  /**
+   * Проверка брейкпоинта и включение/отключение слайдера
+   * @returns {void}
+   */
   checkBreakpoint() {
+    if (!this.breakpoint) return;
     const isDesktop = window.innerWidth >= this.breakpoint;
 
     if (isDesktop) {
@@ -73,8 +84,14 @@ const moreSlider = {
     }
   },
 
+  /**
+   * Расчет максимальной высоты слайдов
+   * @returns {number} Максимальная высота в пикселях
+   */
   calculateMaxHeight() {
     let maxHeight = 0;
+
+    if (!this.grid) return maxHeight;
 
     const tempContainer = document.createElement('div');
     tempContainer.style.cssText = `
@@ -86,7 +103,7 @@ const moreSlider = {
     `;
 
     this.items.forEach((item) => {
-      const clone = item.cloneNode(true);
+      const clone = item.cloneNode(true) as HTMLElement;
       clone.style.cssText = `
         position: relative;
         opacity: 1;
@@ -100,7 +117,7 @@ const moreSlider = {
 
     const clones = tempContainer.children;
     for (let i = 0; i < clones.length; i += 1) {
-      const height = clones[i].offsetHeight;
+      const height = (clones[i] as HTMLElement).offsetHeight;
       if (height > maxHeight) {
         maxHeight = height;
       }
@@ -111,55 +128,72 @@ const moreSlider = {
     return maxHeight;
   },
 
+  /**
+   * Включение слайдера
+   * @returns {void}
+   */
   enable() {
     this.isEnabled = true;
-    this.pagination.classList.add('more__grid-pagination--active');
-    this.grid.classList.add('more__grid--slider');
+    this.pagination?.classList.add('more__grid-pagination--active');
+    this.grid?.classList.add('more__grid--slider');
 
     const maxHeight = this.calculateMaxHeight();
-    this.grid.style.height = `${maxHeight}px`;
+    this.grid!.style.height = `${maxHeight}px`;
 
     this.goToSlide(0);
     this.updateNavigationButtons();
   },
 
+  /**
+   * Отключение слайдера
+   * @returns {void}
+   */
   disable() {
     this.isEnabled = false;
-    this.pagination.classList.remove('more__grid-pagination--active');
-    this.grid.classList.remove('more__grid--slider');
+    this.pagination?.classList.remove('more__grid-pagination--active');
+    this.grid?.classList.remove('more__grid--slider');
 
-    this.grid.style.removeProperty('height');
+    this.grid?.style.removeProperty('height');
 
     this.items.forEach((item) => {
-      const currentItem = item;
+      const currentItem = item as HTMLElement;
       currentItem.style.removeProperty('opacity');
       currentItem.style.removeProperty('visibility');
     });
   },
 
+  /**
+   * Обновление состояния кнопок навигации
+   * @returns {void}
+   */
   updateNavigationButtons() {
     if (this.currentIndex === 0) {
-      this.prevBtn.classList.add('button--disabled');
-      this.prevBtn.disabled = true;
+      this.prevBtn?.classList.add('button--disabled');
+      this.prevBtn!.disabled = true;
     } else {
-      this.prevBtn.classList.remove('button--disabled');
-      this.prevBtn.disabled = false;
+      this.prevBtn?.classList.remove('button--disabled');
+      this.prevBtn!.disabled = false;
     }
 
     if (this.currentIndex === this.totalSlides - 1) {
-      this.nextBtn.classList.add('button--disabled');
-      this.nextBtn.disabled = true;
+      this.nextBtn?.classList.add('button--disabled');
+      this.nextBtn!.disabled = true;
     } else {
-      this.nextBtn.classList.remove('button--disabled');
-      this.nextBtn.disabled = false;
+      this.nextBtn?.classList.remove('button--disabled');
+      this.nextBtn!.disabled = false;
     }
   },
 
-  goToSlide(index) {
+  /**
+   * Переход к указанному слайду
+   * @param {number} index - Индекс слайда
+   * @returns {void}
+   */
+  goToSlide(index: number) {
     if (index < 0 || index >= this.totalSlides) return;
 
     this.items.forEach((item, i) => {
-      const currentItem = item;
+      const currentItem = item as HTMLElement;
       currentItem.style.opacity = i === index ? '1' : '0';
       currentItem.style.visibility = i === index ? 'visible' : 'hidden';
     });
@@ -172,10 +206,18 @@ const moreSlider = {
     this.updateNavigationButtons();
   },
 
+  /**
+   * Переход к следующему слайду
+   * @returns {void}
+   */
   next() {
     this.goToSlide(this.currentIndex + 1);
   },
 
+  /**
+   * Переход к предыдущему слайду
+   * @returns {void}
+   */
   prev() {
     this.goToSlide(this.currentIndex - 1);
   },

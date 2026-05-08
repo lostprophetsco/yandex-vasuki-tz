@@ -31,6 +31,19 @@ export const webpackConfig = async (isMode) => {
 						fullySpecified: false,
 					},
 				},
+				{
+					test: /\.ts$/,
+					exclude: /node_modules/,
+					use: {
+						loader: 'ts-loader',
+						options: {
+							transpileOnly: true,
+						},
+					},
+					resolve: {
+						fullySpecified: false,
+					},
+				},
 			],
 		},
 	};
